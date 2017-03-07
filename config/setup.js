@@ -7,3 +7,9 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
+
+connection.query('CREATE DATABASE IF NOT EXISTS matcha')
+console.log('Database matcha created')
+connection.query('USE matcha')
+
+connection.end()

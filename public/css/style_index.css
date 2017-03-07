@@ -1,0 +1,111 @@
+a:link 
+{ 
+ text-decoration: none;
+ color: red;
+}
+a:visited{color:red;}
+
+.back_ground
+{
+	height: 700px;
+	margin:0; 
+	padding:0;
+	background: url('/static/image/back_ground.png') no-repeat center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+.style_header
+{
+	margin-top: 0px;
+	height: 80px;
+
+}
+.logo
+{
+	margin-left: 2%;
+	margin-top: -15px;
+}
+.right_panel
+{
+	position: absolute;
+	right: 70px;
+	top: 30px;
+	display: inline-block;
+	font-family: "Gotham_SSm_3r",Helvetica,Arial,sans-serif;
+	font-size: 25px;
+	transition-property: ;
+	transition: border .3s ease-in-out 0s,color .3s ease-in-out 0s;
+}
+.right_panel:hover
+{
+	text-decoration: underline;
+}
+
+.middle
+{
+	margin-left: 120px;
+	width: 40%;
+	height: 500px;
+}
+.contentmid
+{
+	text-align: center;
+}
+h1
+{
+	font-size: 2,5vw;
+	font-family: "webfont",Helvetica,Arial,sans-serif;
+	color: white;
+	margin: 10px;
+}
+.info
+{
+	color: white;
+	font-size: 1,5vw;
+	font-family: "Gotham_SSm_4r",Helvetica,Arial,sans-serif;
+	margin: 30px;
+}
+.sign_up
+{
+	height: 400px;
+}
+.form_1
+{
+	text-align: center;
+	border-radius: 5px 20px 5px;
+}
+.nom_prenom
+{
+    font-family: "Gotham_SSm_4r",Helvetica,Arial,sans-serif;
+    color: #586062;
+    border-radius: 3px;
+    outline: none;
+    padding: 12px 10px 10px;
+    display: inline-block;
+}
+.email
+{
+	width: 278px;
+	font-family: "Gotham_SSm_4r",Helvetica,Arial,sans-serif;
+    color: #586062;
+    border-radius: 3px;
+    outline: none;
+    padding: 12px 10px 10px;
+    display: inline-block;
+}
+.button_inscription
+{
+	width: 300px;
+	font-family: "Gotham_SSm_4r",Helvetica,Arial,sans-serif;
+    color: #586062;
+    border-radius: 3px;
+    outline: none;
+    padding: 12px 10px 10px;
+    display: inline-block;
+}
+.div_nom
+{
+	width: 40%;
+}
