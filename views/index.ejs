@@ -9,8 +9,14 @@
     <body>
         <header class='style_header'>
         	<img src="/static/image/logo.png" class='logo'>
-        	<div class='right_panel'>
-        		<a href=''>Connection</a>
+        	<div>
+                <fieldset class='right_panel'>
+                    <input type='text' class='connection_top' value='Login' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Login'"></input>
+                    <input type='Password' class='connection_top' value='Password' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Prenom'"></input>
+                    <input type='submit' value='Connection' class='button_con'></input>
+                </br>
+                    <a class='mdp_oublie'>Mot de passe oublié ?</a>
+                </fieldset>
         	</div>
         </header>
         <div class='back_ground'>
@@ -28,18 +34,18 @@
         			<form>
         				<fieldset class='form_1'>
         				</br>
-        					<input type='text' class='nom_prenom' value='Prenom'></input>
-        					<input type='text' class='nom_prenom'value='Nom'></input>
+        					<input type='text' class='nom_prenom' value='Prenom' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Prenom'"></input>
+        					<input type='text' class='nom_prenom'value='Nom' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Nom'"></input>
         				</br>
         			</br>
-        					<input type='text' class='nom_prenom' value="Nom d'utilisateur"></input>
-        					<input type='text' class='nom_prenom' value="Mot de passe"></input>
+        					<input type='text' class='nom_prenom' value="Login" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Login'"></input>
+        					<input type='password' class='nom_prenom' value="Password" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Password'"></input>
         				</br>
         				</br>
-        					<input type='text' class='email' value="Adresse email"></input>
+        					<input type='text' class='email' value="Adresse email" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Adresse email'"></input>
         					</br>
         				</br>
-        					<input type='Button' class='button_inscription' value="Inscrivez vous gratuitement"></input>
+        					<input type='submit' class='button_inscription' value="Inscrivez vous gratuitement"></input>
         				</br>
         			</br>
         				</fieldset>
