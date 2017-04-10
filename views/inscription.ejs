@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Matcha</title>
+        <link rel="stylesheet" href="static/css/style_index.css" />
+        <script type = "text/javascript" 
+         src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <header class='style_header'>
+        	<img src="/static/image/logo.png" class='logo'>
+        	<div>
+                <fieldset class='right_panel'>
+                    <input type='text' class='connection_top' value='Login' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Login'"></input>
+                    <input type='Password' class='connection_top' value='Password' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Prenom'"></input>
+                    <input type='submit' value='Connection' class='button_con'></input>
+                </br>
+                    <a class='mdp_oublie'>Mot de passe oublié ?</a>
+                </fieldset>
+        	</div>
+        </header>
+        <div class='back_ground'>
+        	<div class='middle'>
+        		<div class='contentmid'>
+        		</br>
+        	</br>
+        	</br>
+        			<H1>Rien n'arrive par hasard !</H1>
+        			<p class='info'>Un petit pas en avant peut être le debut d'un long voyage...
+        			</p>
+        		</br>
+        		</div>
+        		<div class='sign_up'>
+        			<form>
+        				<fieldset class='form_1'>
+        				</br>
+        					<input id='prenom' type='text' class='nom_prenom' value='Prenom' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Prenom'"></input>
+        					<input id='nom' type='text' class='nom_prenom'value='Nom' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Nom'"></input>
+        				</br>
+        			</br>
+        					<input id='login' type='text' class='nom_prenom' value="Login" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Login'"></input>
+        					<input id='password' type='password' class='nom_prenom' value="Password" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Password'"></input>
+        				</br>
+        				</br>
+        					<input id='email' type='text' class='email' value="Adresse email" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Adresse email'"></input>
+        					</br>
+        				</br>
+        					<input type='submit' id='inscription' class='button_inscription' value="Inscrivez vous gratuitement" onclick="verif();"></input>
+                        <script type="text/javascript" src="static/js/regist.js"></script>
+        				</br>
+        			</br>
+        				</fieldset>
+        			</form>
+        		</div>
+        	</div>
+        </div>
+    </body>
+</html>

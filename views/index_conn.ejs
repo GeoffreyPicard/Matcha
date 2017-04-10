@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Matcha</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/css/style_connect.css" />
+        <script type = "text/javascript" 
+         src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script type="text/javascript" src="js/noty/packaged/jquery.noty.packaged.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>
+
+    <body  class="back_ground" >
+        <nav class="navbar navbar-default top-bar navbar-fixed-top" data-spy="affix" data-offset-top="250" >
+    <div class="container" >
+        <!- Brand and toggle get grouped for better mobile display ->
+        <div class="navbar-header page-scroll">
+            <button data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/index" class="navbar-brand">Mon profil</a>
+        </div>
+        <!- Collect the nav links, forms, and other content for toggling ->
+        <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="#services">Rencontre</a></li>   
+                <li><a href="#features">Chat</a></li>
+                <li><a href="#testimonials">Activité</a></li>
+                <li><a href="/">Déconnection</a></li>
+                
+            </ul>
+        </div>
+        <!- /.navbar-collapse ->
+    </div>
+    <!- /.container-fluid ->
+</nav>
+
+<section id="home">
+<div class="container">
+      <div class="row">
+      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+           <A href="edit.html" >Edit Profile</A>
+
+        <A href="edit.html" >Logout</A>
+       <br>
+<p class=" text-info">May 05,2014,03:00 pm </p>
+      </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+   
+   
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= user.login %></h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="<%= user.photo1 %>" style='width: 150px' class="img-circle img-responsive"> </div>
+                
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Nom:</td>
+                        <td><%= user.nom %></td>
+                      </tr>
+                      <tr>
+                        <td>Prénom:</td>
+                        <td><%= user.prenom %></td>
+                      </tr>
+                      <tr>
+                        <td>Age:</td>
+                        <td><%= user.age %></td>
+                      </tr>
+                   
+                         <tr>
+                             <tr>
+                        <td>Sexe:</td>
+                        <td><%= user.sexe %></td>
+                      </tr>
+                        <tr>
+                        <td>Orientation:</td>
+                        <td><%= user.orientation %></td>
+                      </tr>
+                      <tr>
+                        <td>E-mail:</td>
+                        <td><a href="mailto:info@support.com"><%= user.email %></a></td>
+                      </tr>
+                      <tr>
+                        <td>Bio:</td>
+                        <td><%= user.bio %></td>
+                      </tr>
+                      <tr>
+                        <td>Interêts:</td>
+                        <td><%= user.intere %></td>
+                      </tr>
+                      <tr>
+                        <td>Popularité:</td>
+                        <td><%= user.popularite %></td>
+                      </tr>
+                      <tr>
+                        <td>Mes photos:</td>
+                        <td><img src="<%= user.photo2 %>" style="width:118px">
+                                <img src="<%= user.photo3 %>" style="width:118px">
+                                <img src="<%= user.photo4 %>" style="width:118px">
+                                <img src="<%= user.photo5 %>" style="width:118px"></td>
+                      </tr>
+                        
+                     
+                    </tbody>
+                  </table>
+                  
+
+                </div>
+              </div>
+            </div>
+                 <div class="panel-footer">
+                      <a href="/edit" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                        <span class="pull-right">
+                           
+                            
+                        </span>
+                    </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+</section>
+
+
+    </body>
+</html>

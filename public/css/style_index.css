@@ -143,3 +143,27 @@ input[type=submit] {
 	color: #1abc9c;
 	cursor: pointer;
 }
+.pass_oublie
+{
+	padding: 140px;
+	text-align: center;
+	margin-left: -70px;
+	border: 0;
+}
+.button_reinitialisation
+{
+	background-color: #1abc9c; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 280px;
+}
+.retrouv
+{
+	color: white;
+	font-size: 25px;
+}

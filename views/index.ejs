@@ -4,19 +4,24 @@
     <head>
         <title>Matcha</title>
         <link rel="stylesheet" href="static/css/style_index.css" />
+        <script type = "text/javascript" 
+         src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script type="text/javascript" src="js/noty/packaged/jquery.noty.packaged.min.js"></script>
     </head>
 
     <body>
         <header class='style_header'>
-        	<img src="/static/image/logo.png" class='logo'>
+        	<a href='/'><img src="/static/image/logo.png" class='logo'></a>
         	<div>
+                <form>
                 <fieldset class='right_panel'>
-                    <input type='text' class='connection_top' value='Login' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Login'"></input>
-                    <input type='Password' class='connection_top' value='Password' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Prenom'"></input>
-                    <input type='submit' value='Connection' class='button_con'></input>
+                    <input type='text' id='login' class='connection_top' value='Login' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Login'"></input>
+                    <input id='password' type='Password' class='connection_top' value='Password' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Prenom'"></input>
+                    <input id='but_connection' type='submit' value='Connection' class='button_con' onclick="connection();"></input>
                 </br>
-                    <a class='mdp_oublie'>Mot de passe oublié ?</a>
+                    <a class='mdp_oublie' href='/pass.oublie'>Mot de passe oublié ?</a>
                 </fieldset>
+            </form>
         	</div>
         </header>
         <div class='back_ground'>
@@ -31,21 +36,21 @@
         		</br>
         		</div>
         		<div class='sign_up'>
-        			<form>
+        			<form >
         				<fieldset class='form_1'>
         				</br>
-        					<input type='text' class='nom_prenom' value='Prenom' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Prenom'"></input>
-        					<input type='text' class='nom_prenom'value='Nom' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Nom'"></input>
+        					<input id='prenom' type='text' class='nom_prenom' value='Prenom' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Prenom'"></input>
+        					<input id='nom' type='text' class='nom_prenom'value='Nom' onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Nom'"></input>
         				</br>
         			</br>
-        					<input type='text' class='nom_prenom' value="Login" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Login'"></input>
-        					<input type='password' class='nom_prenom' value="Password" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Password'"></input>
+        					<input id='login' type='text' class='nom_prenom' value="Login" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Login'"></input>
+        					<input id='password' type='password' class='nom_prenom' value="Password" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Password'"></input>
         				</br>
         				</br>
-        					<input type='text' class='email' value="Adresse email" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Adresse email'"></input>
+        					<input id='email' type='text' class='email' value="Adresse email" onFocus="javascript:this.value=''" onBlur="javascript:if(this.value=='')this.value='Adresse email'"></input>
         					</br>
         				</br>
-        					<input type='submit' class='button_inscription' value="Inscrivez vous gratuitement"></input>
+        					<input type='submit' id='inscription' class='button_inscription' value="Inscrivez vous gratuitement" onclick="verif();" ></input>                    
         				</br>
         			</br>
         				</fieldset>
@@ -53,5 +58,6 @@
         		</div>
         	</div>
         </div>
+        <script type="text/javascript" src="static/js/regist.js"></script>
     </body>
 </html>
