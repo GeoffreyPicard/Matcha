@@ -39,7 +39,7 @@ const User = {
 				cb(null);
 		},
 		function(cb){
-			var tab = connection.query('SELECT login, email FROM matcha.users WHERE login= ? OR email = ?', [user.login, user.email], cb);
+			var tab = connection.query('SELECT login FROM matcha.users WHERE login= ?', [user.login], cb);
  			return tab;
 		},
 		function(tab, res, cb){
@@ -48,12 +48,22 @@ const User = {
 			if (tab[0].login)
 			{
 				a_ecrire = {type:"error", phrase:"Désolé, ce login est déjà utilisé :(", tim: 3000, err:"yes"};
-				err = 1;
+				return callback(a_ecrire);
 			}
-			if (tab[0].email === user.email)
+			}
+			cb(null);
+		},
+		function(cb){
+			var tab = connection.query('SELECT email FROM matcha.users WHERE email= ?', [user.email], cb);
+ 			return tab;
+		},
+		function(tab, res, cb){
+			if (err === 0 && tab[0])
 			{
-				a_ecrire = {type:"error", phrase:"Désolé, cette email est déjà utilisé :(", tim: 3000, err:"yes"};
-				err = 1;
+			if (tab[0].email)
+			{
+				a_ecrire = {type:"error", phrase:"Désolé, cet email est déjà utilisé :(", tim: 3000, err:"yes"};
+				return callback(a_ecrire);
 			}
 			}
 			cb(null);

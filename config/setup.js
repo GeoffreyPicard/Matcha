@@ -46,6 +46,12 @@ async.waterfall([
 				hashi TEXT)`,
 			cb);
 	},
+	function(pak, res, cb){
+		connection.query(
+			`CREATE TABLE IF NOT EXISTS interests (
+				hashtag VARCHAR(255) DEFAULT '')`,
+			cb);
+	},
 	function(res, pak, cb){
 		console.log("all created");
 		connection.end();

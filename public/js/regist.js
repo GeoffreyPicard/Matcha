@@ -2,8 +2,8 @@ function verif ()
 {
 	var prenom = document.getElementById("prenom").value;
 	var nom = document.getElementById("nom").value;
-	var login = document.getElementById("login").value;
-	var password = document.getElementById("password").value;
+	var login = document.getElementById("loginn").value;
+	var password = document.getElementById("passwordd").value;
 	var email = document.getElementById("email").value;
   event.preventDefault();
   var dataToSend = {prenom: prenom, nom: nom, login: login, password: password, email: email};

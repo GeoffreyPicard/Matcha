@@ -62,6 +62,8 @@ const Profile = {
 	},
 
 	Modification: function(info, callback) {
+		var tags = [];
+		var res;
 		var a_ecrire = {type:"success", phrase:"Les changements ont bien était pris en compte :)", tim: 3000, err:"no"};
 		async.waterfall([
 
@@ -82,6 +84,75 @@ const Profile = {
 					return callback(a_ecrire);
 				}
 				cb(null);
+		},
+		function(cb){
+			res = info.intere.split(" ");
+			var j = 0;
+			while (res[j])
+			{
+				if (res[j].strlen > 240)
+				{
+					a_ecrire = {type:"error", phrase:"L'interêt est trop long !", tim: 3000, err:"yes"};
+					return callback(a_ecrire);	
+				}
+				if (res[j][0] != '#')
+				{
+					a_ecrire = {type:"error", phrase:"Les interêts doivent commencer par '#'", tim: 3000, err:"yes"};
+					return callback(a_ecrire);
+				}
+				j++;
+			}
+			cb(null);
+		},
+		function(cb){
+			var tab = connection.query('SELECT hashtag FROM matcha.interests', cb);
+			return tab;
+		},
+		function(pak, res, cb){
+			var i = 0;
+			var j = 0;
+			var a = 0;
+			var oki = 0;
+			res = info.intere.split(" ");
+			if (pak[0])
+			{
+			while (res[i])
+			{
+				j = 0;
+				oki = 0;
+				while (pak[j])
+				{
+					if (pak[j].hashtag.indexOf(res[i]) >= 0)
+						oki = 1;
+					j++;
+				}
+				if (oki === 0)
+				{
+					tags[a] = res[i];
+					a++;
+				}
+				i++;
+			}
+			}
+			else
+			{
+				while (res[i])
+				{
+					tags[i] = res[i];
+					i++;
+				}
+			}
+			cb(null);
+		},
+		function(cb)
+		{
+			var i = 0;
+			while (tags[i])
+			{
+				connection.query('INSERT INTO interests (hashtag) VALUES (?)', [tags[i]]);
+				i++;
+			}
+			cb(null);
 		},
 		function(cb){
 			connection.query('UPDATE matcha.users SET nom= ?, prenom= ?, email= ?, orientation= ?, bio= ?, interests= ?, sexe= ? WHERE login= ?', [info.nom, info.prenom, info.email, info.orientation, info.bio, info.intere, info.sexe, info.login], cb);
