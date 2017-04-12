@@ -139,20 +139,6 @@ app.post('/delete_photo', function (req, res, next){
 	});
 })
 
-app.get('/rencontre', function (req, res, next){
-	if(!req.session.user)
-		res.redirect('/');
-	else
-	{
-
-		let Rencontre = require('./models/rencontre.js');
-		var info = {login: req.session.user, password: req.session.password};
-		Rencontre.Choix(info, function (data) {
-			res.render('./rencontre.ejs', {user: data});
-		})
-	}
-})
-
 app.post('/setlocation.js', function (req, res, next){
 	if(!req.session.user)
 		res.redirect('/');
@@ -171,6 +157,20 @@ app.post('/newlocation.js', function (req, res, next){
 
 		db.query('UPDATE matcha.users SET lat= ?, longi= ? WHERE login= ?', [req.body.lat, req.body.longi, req.session.user]);
 		res.json({phrase: 'Votre localisation à bien était changée :)', theme: 'success', time: 3000, erreur: 'yes'});
+	}
+})
+app.get('/rencontre', function (req, res, next){
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+
+		let Rencontre = require('./models/rencontre.js');
+		var info = {login: req.session.user, password: req.session.password};
+		Rencontre.Choix(info, function (data) {		
+			console.log(data.user0);
+			res.render('./rencontre.ejs', {user: data});
+		})
 	}
 })
 

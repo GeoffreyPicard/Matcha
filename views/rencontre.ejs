@@ -40,98 +40,56 @@
     <!- /.container-fluid ->
 </nav>
 
-<section id="home">
+
+
+
+</br>
+</br>
+</br>
+</br>
+<section>
 <div class="container">
-      <div class="row">
-      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
-           <A href="edit.html" >Edit Profile</A>
-
-        <A href="edit.html" >Logout</A>
-       <br>
-<p class=" text-info">May 05,2014,03:00 pm </p>
-      </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
-   
-   
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title"><%= user.login %></h3>
+    <div class="row">
+      <ul class="thumbnails list-unstyled">
+        <li class="col-md-3 col-sm-5">
+          <div class="thumbnail" style="padding: 0">
+            <div style="padding:4px">
+              <img alt="300x200" style="width: 100%" src="http://placehold.it/200x150">
             </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="<%= user.photo1 %>" style='width: 150px' class="img-circle img-responsive"> </div>
-                
-                <div class=" col-md-9 col-lg-9 "> 
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>Nom:</td>
-                        <td><%= user.nom %></td>
-                      </tr>
-                      <tr>
-                        <td>Prénom:</td>
-                        <td><%= user.prenom %></td>
-                      </tr>
-                      <tr>
-                        <td>Age:</td>
-                        <td><%= user.age %></td>
-                      </tr>
-                   
-                         <tr>
-                             <tr>
-                        <td>Sexe:</td>
-                        <td><%= user.sexe %></td>
-                      </tr>
-                        <tr>
-                        <td>Orientation:</td>
-                        <td><%= user.orientation %></td>
-                      </tr>
-                      <tr>
-                        <td>E-mail:</td>
-                        <td><a href="mailto:info@support.com"><%= user.email %></a></td>
-                      </tr>
-                      <tr>
-                        <td>Bio:</td>
-                        <td><%= user.bio %></td>
-                      </tr>
-                      <tr>
-                        <td>Interêts:</td>
-                        <td><%= user.intere %></td>
-                      </tr>
-                      <tr>
-                        <td>Popularité:</td>
-                        <td><%= user.popularite %></td>
-                      </tr>
-                      <tr>
-                        <td>Mes photos:</td>
-                        <td><img src="<%= user.photo2 %>" style="width:118px">
-                                <img src="<%= user.photo3 %>" style="width:118px">
-                                <img src="<%= user.photo4 %>" style="width:118px">
-                                <img src="<%= user.photo5 %>" style="width:118px"></td>
-                      </tr>
-                        
-                     
-                    </tbody>
-                  </table>
-                  
-
+            <div class="caption">
+              <h2>Project A</h2>
+              <h2><%= user.user1.email %></h2>
+              <p>My project description</p>
+              <p><i class="icon icon-map-marker"></i> Place, Country</p>
+            </div>
+            <div class="modal-footer" style="text-align: left">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                    <span class="sr-only">60% Complete</span>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-4"><b>60%</b><br/><small>FUNDED</small></div>
+                <div class="col-md-4"><b>$400</b><br/><small>PLEDGED</small></div>
+                <div class="col-md-4"><b>18</b><br/><small>DAYS</small></div>
+              </div>
             </div>
-                 <div class="panel-footer">
-                      <a href="/edit" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                        <span class="pull-right">
-                           
-                            
-                        </span>
-                    </div>
-            
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
-
+</div>
 </section>
+
+
+
+
+
+
+
+
+
+
 
     </body>
 </html>

@@ -5,6 +5,7 @@ const validator = require('validator');
 const Rencontre = {
 
 	Choix: function(info, callback) {
+		var res = new Object();
 		var tab = {nom: '', prenom: '', age: '', sexe: '', orientation: '', bio: '', intere: '', popularite: '', sexe_homme: '', sexe_femme: '', ori_hommo: '', ori_hetero : '', ori_bi: '', photo1: '', photo2: '', photo3: '', photo4: '', photo5: ''};
 		async.waterfall([
 		function(cb){
@@ -12,51 +13,63 @@ const Rencontre = {
 			cb(null);
 		},
 		function(cb){
-			var tab = connection.query('SELECT nom, prenom, age, sexe, orientation, email, bio, interests, popularite, photo1, photo2, photo3, photo4, photo5 FROM matcha.users WHERE login= ?', [info.login], cb);
+			var tab = connection.query('SELECT nom, prenom, age, sexe, orientation, email, bio, interests, popularite, photo1, photo2, photo3, photo4, photo5 FROM matcha.users', cb);
 			return tab;
 		},
 		function(pak, res, cb){
-			tab.email = pak[0].email;
-			tab.nom = pak[0].nom;
-			tab.prenom = pak[0].prenom;
-			tab.age = pak[0].age;
-			tab.sexe = pak[0].sexe;
-			tab.orientation = pak[0].orientation;
-			tab.bio = pak[0].bio;
-			tab.intere = pak[0].interests;
-			tab.popularite = pak[0].popularite;
-			tab.photo1 = pak[0].photo1;
-			tab.photo2 = pak[0].photo2;
-			tab.photo3 = pak[0].photo3;
-			tab.photo4 = pak[0].photo4;
-			tab.photo5 = pak[0].photo5;
+			var user;
+			var i = 0;
+			if (pak[0])
+			{
+			while (pak[i])
+			{
+			user = 'user' + i;
+			tab.email = pak[i].email;
+			tab.nom = pak[i].nom;
+			tab.prenom = pak[i].prenom;
+			tab.age = pak[i].age;
+			tab.sexe = pak[i].sexe;
+			tab.orientation = pak[i].orientation;
+			tab.bio = pak[i].bio;
+			tab.intere = pak[i].interests;
+			tab.popularite = pak[i].popularite;
+			tab.photo1 = pak[i].photo1;
+			tab.photo2 = pak[i].photo2;
+			tab.photo3 = pak[i].photo3;
+			tab.photo4 = pak[i].photo4;
+			tab.photo5 = pak[i].photo5;
 			tab.login = info.login;
-			if (!pak[0].age)
+			if (!pak[i].age)
 				tab.age = '18';
-			if (!pak[0].sexe)
+			if (!pak[i].sexe)
 				tab.sexe = 'inconnu';
-			if (!pak[0].orientation)
+			if (!pak[i].orientation)
 				tab.orientation = 'inconnu';
-			if (!pak[0].bio)
+			if (!pak[i].bio)
 				tab.bio = 'inconnu';
-			if (!pak[0].interests)
+			if (!pak[i].interests)
 				tab.intere = 'inconnu';
-			if (!pak[0].popularité)
+			if (!pak[i].popularité)
 				tab.popularite = 'inconnu';
-			if (pak[0].sexe === 'homme')
+			if (pak[i].sexe === 'homme')
 				tab.sexe_homme = 'checked';
-			if (pak[0].sexe === 'femme')
+			if (pak[i].sexe === 'femme')
 				tab.sexe_femme = 'checked';
-			if (pak[0].orientation === 'hetero')
+			if (pak[i].orientation === 'hetero')
 				tab.ori_hetero = 'checked';
-			if (pak[0].orientation === 'hommo')
+			if (pak[i].orientation === 'hommo')
 				tab.ori_hommo = 'checked';
-			if (pak[0].orientation === 'bi')
+			if (pak[i].orientation === 'bi')
 				tab.ori_bi = 'checked';
+			res[user] = tab;
+			i++;
+			}
+			}
+			return callback(res);
 			cb(null);
 		},
 		function(cb){
-			return callback(tab);
+			return callback(res);
 		},
 ], function(err){
 	console.log("termine");
