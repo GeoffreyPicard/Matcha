@@ -12,8 +12,8 @@
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
 
-    <body  class="back_ground" onload="initialize()">
-        <nav class="navbar navbar-default top-bar navbar-fixed-top" data-spy="affix" data-offset-top="250" >
+    <body  class="back_ground" >
+       <nav class="navbar navbar-default top-bar navbar-fixed-top" data-spy="affix" data-offset-top="250" >
     <div class="container" >
         <!- Brand and toggle get grouped for better mobile display ->
         <div class="navbar-header page-scroll">
@@ -50,7 +50,7 @@
        <br>
 <p class=" text-info">May 05,2014,03:00 pm </p>
       </div>
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1 toppad" >
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
    
    
           <div class="panel panel-info">
@@ -109,12 +109,6 @@
                                 <img src="<%= user.photo4 %>" style="width:118px">
                                 <img src="<%= user.photo5 %>" style="width:118px"></td>
                       </tr>
-                      <tr>
-                        <input id='db_lat' type='hidden' value='<%= user.lat %>'></input>
-                        <input id='db_longi' type='hidden' value='<%= user.longi %>'></input>
-                        <td>Ma position:</td>
-                        <td><div id="map" style="width:100%;height:400px;"></div></td>
-                      </tr>
                         
                      
                     </tbody>
@@ -138,11 +132,6 @@
     </div>
 
 </section>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMREstjS_JgXU5xx1l3kesHy1Kevxq19Q"
-    async defer></script>
-<script type="text/javascript" src="static/js/map.js"></script>
-
 
     </body>
 </html>

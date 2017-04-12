@@ -32,6 +32,8 @@ async.waterfall([
 				interests TEXT,
 				popularite INT(9),
 				age INT DEFAULT NULL,
+				lat VARCHAR(255) DEFAULT '',
+				longi VARCHAR(255) DEFAULT '',
 				photo1 VARCHAR(255) DEFAULT '/image/photo_profil_vide.png',
 				photo2 VARCHAR(255) DEFAULT '/image/img_vide.jpg',
 				photo3 VARCHAR(255) DEFAULT '/image/img_vide.jpg',

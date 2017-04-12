@@ -139,4 +139,39 @@ app.post('/delete_photo', function (req, res, next){
 	});
 })
 
+app.get('/rencontre', function (req, res, next){
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+
+		let Rencontre = require('./models/rencontre.js');
+		var info = {login: req.session.user, password: req.session.password};
+		Rencontre.Choix(info, function (data) {
+			res.render('./rencontre.ejs', {user: data});
+		})
+	}
+})
+
+app.post('/setlocation.js', function (req, res, next){
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+		db.query('UPDATE matcha.users SET lat= ?, longi= ? WHERE login= ?', [req.body.lat, req.body.longi, req.session.user]);	
+	}
+})
+
+app.post('/newlocation.js', function (req, res, next){
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+		var a_ecrire = {type:"success", phrase:"Les changements ont bien était pris en compte :)", tim: 3000, err:"no"};
+
+		db.query('UPDATE matcha.users SET lat= ?, longi= ? WHERE login= ?', [req.body.lat, req.body.longi, req.session.user]);
+		res.json({phrase: 'Votre localisation à bien était changée :)', theme: 'success', time: 3000, erreur: 'yes'});
+	}
+})
+
 app.listen(8080);
