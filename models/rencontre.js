@@ -5,7 +5,7 @@ const validator = require('validator');
 const Rencontre = {
 
 	Choix: function(info, callback) {
-		var res = new Object();
+		var res = new Array;
 		var tab = {nom: '', prenom: '', age: '', sexe: '', orientation: '', bio: '', intere: '', popularite: '', sexe_homme: '', sexe_femme: '', ori_hommo: '', ori_hetero : '', ori_bi: '', photo1: '', photo2: '', photo3: '', photo4: '', photo5: ''};
 		async.waterfall([
 		function(cb){
@@ -17,13 +17,11 @@ const Rencontre = {
 			return tab;
 		},
 		function(pak, res, cb){
-			var user;
 			var i = 0;
 			if (pak[0])
 			{
 			while (pak[i])
 			{
-			user = 'user' + i;
 			tab.email = pak[i].email;
 			tab.nom = pak[i].nom;
 			tab.prenom = pak[i].prenom;
@@ -49,8 +47,8 @@ const Rencontre = {
 				tab.bio = 'inconnu';
 			if (!pak[i].interests)
 				tab.intere = 'inconnu';
-			if (!pak[i].popularité)
-				tab.popularite = 'inconnu';
+			if (pak[i].popularité === 0)
+				tab.popularite = 0;
 			if (pak[i].sexe === 'homme')
 				tab.sexe_homme = 'checked';
 			if (pak[i].sexe === 'femme')
@@ -61,15 +59,43 @@ const Rencontre = {
 				tab.ori_hommo = 'checked';
 			if (pak[i].orientation === 'bi')
 				tab.ori_bi = 'checked';
-			res[user] = tab;
+			res[i] = tab;
+			tab = {nom: '', prenom: '', age: '', sexe: '', orientation: '', bio: '', intere: '', popularite: '', sexe_homme: '', sexe_femme: '', ori_hommo: '', ori_hetero : '', ori_bi: '', photo1: '', photo2: '', photo3: '', photo4: '', photo5: ''};
 			i++;
 			}
 			}
+			res.unshift(i);
 			return callback(res);
-			cb(null);
 		},
+], function(err){
+	console.log("termine");
+	connection.end();
+});
+},
+
+	Tri: function(info, callback) {
+		var i = 0;
+		var res = new Array;
+		while (i < info[0])
+		{
+			res[i] = info[i];
+			i++;
+		}
+		return callback(res);
+	},
+
+	Tags: function(info, callback) {
+		async.waterfall([
 		function(cb){
-			return callback(res);
+			var tab = connection.query('SELECT hashtag FROM matcha.interests', cb);
+		},
+		function(pak, res, cb){
+			var tab = new Array;
+			tab[0] = "aucun";
+			for (x in pak) {
+    			tab.push(pak[x].hashtag);
+			}
+			return callback(tab);
 		},
 ], function(err){
 	console.log("termine");

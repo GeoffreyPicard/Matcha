@@ -30,7 +30,7 @@ async.waterfall([
 				orientation VARCHAR(25) DEFAULT '',
 				bio TEXT,
 				interests TEXT,
-				popularite INT(9),
+				popularite INT(9) DEFAULT 0,
 				age INT DEFAULT NULL,
 				lat VARCHAR(255) DEFAULT '',
 				longi VARCHAR(255) DEFAULT '',

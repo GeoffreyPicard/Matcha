@@ -40,8 +40,8 @@ const Profile = {
 				tab.bio = 'inconnu';
 			if (!pak[0].interests)
 				tab.intere = 'inconnu';
-			if (!pak[0].popularité)
-				tab.popularite = 'inconnu';
+			if (pak[0].popularité === 0)
+				tab.popularite = '0';
 			if (pak[0].sexe === 'homme')
 				tab.sexe_homme = 'checked';
 			if (pak[0].sexe === 'femme')

@@ -59,3 +59,7 @@
     height: 118px;
     cursor:pointer;
 }
+
+#ex1Slider .slider-selection {
+    background: #BABABA;
+}

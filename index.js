@@ -167,9 +167,14 @@ app.get('/rencontre', function (req, res, next){
 
 		let Rencontre = require('./models/rencontre.js');
 		var info = {login: req.session.user, password: req.session.password};
-		Rencontre.Choix(info, function (data) {		
-			console.log(data.user0);
-			res.render('./rencontre.ejs', {user: data});
+		var tags;
+		Rencontre.Tags(info, function (data1) {
+			tags = data1;
+		})
+		Rencontre.Choix(info, function (data) {
+			Rencontre.Tri(data, function(data1) {
+				res.render('./rencontre.ejs', {user: data, tags: tags});
+			});
 		})
 	}
 })
