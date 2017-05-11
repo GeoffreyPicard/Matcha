@@ -84,16 +84,19 @@
   <div>
    <p style="border:0; font-weight:bold;"> Filtre par tags: </p>
     <select id="tag1" class="selectpicker">
+    <option selected="selected"><%= filtre[7] %></option>
     <% for(var i= 0; i < tags.length; i++) { %>
     <option><%= tags[i] %></option>
     <% } %>
     </select>
     <select id="tag2" class="selectpicker">
+    <option selected="selected"><%= filtre[8] %></option>
     <% for(var i= 0; i < tags.length; i++) { %>
     <option><%= tags[i] %></option>
     <% } %>
     </select>
     <select id="tag3" class="selectpicker">
+    <option selected="selected"><%= filtre[9] %></option>
     <% for(var i= 0; i < tags.length; i++) { %>
     <option><%= tags[i] %></option>
     <% } %>
@@ -113,7 +116,7 @@
         <li class="col-md-3 col-sm-5">
           <div class="thumbnail" style="padding: 0">
             <div style="padding:4px">
-              <img alt="300x200" style="height: 150px;" src="<%= user[i].photo1 %>">
+              <img alt="300x200" class="photo_types" src="<%= user[i].photo1 %>">
             </div>
             <div class="caption">
               <h2><%= user[i].nom %></h2>
@@ -130,9 +133,9 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4"><b><%= user[i].popularite %></b><br/><small>FUNDED</small></div>
-                <div class="col-md-4"><b>$400</b><br/><small>PLEDGED</small></div>
-                <div class="col-md-4"><b>18</b><br/><small>DAYS</small></div>
+                
+                <a href="/profile/<%= user[i].login %>"><button type="button" style="width: 100%" class="btn btn-danger">Voir le profil</button></a>
+                
               </div>
             </div>
           </div>

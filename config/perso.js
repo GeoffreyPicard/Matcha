@@ -34,7 +34,7 @@ async.waterfall([
 	},
 	function(pak, res, cb){
 		var hash = crypto.createHash('whirlpool').update("Jeanluctkt").digest('hex');
-		connection.query('INSERT INTO users (login, nom, prenom, email, password, sexe, orientation, bio, interests, popularite, lat, longi, age, photo1, photo2, photo3, photo4, photo5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', ["Melanchon", "Jean-luc", "Melanchon", "melanchontkt@gmail.com", hash, "Homme", "Hetero", "Moi c'est Jean-luc, et je suis pas content !", "#lepeuple #rendezlargent", "35", "48.856614", "2.3522219000000177", "65", "/image/melanchon1.jpg", "/image/melanchon2.jpg", "/image/melanchon3.jpg", "/image/melanchon4.jpg", "/image/melanchon5.jpg"], cb);
+		connection.query('INSERT INTO users (login, nom, prenom, email, password, sexe, orientation, bio, interests, popularite, lat, longi, age, photo1, photo2, photo3, photo4, photo5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', ["Melanchon", "Jean-luc", "Melanchon", "melanchontkt@gmail.com", hash, "Homme", "Hetero", "Moi c'est Jean-luc, et je suis pas content !", "#lepeuple #rendezlargent", "35", "48.856614", "2.3522219000000177", "65", "/image/melanchon1.jpg", "/image/melanchon2.jpg", "/image/melanchon3.jpg", "/image/melanchon4.png", "/image/melanchon5.jpg"], cb);
 	},
 	function(pak, res, cb){
 		var hash = crypto.createHash('whirlpool').update("Angelatkt").digest('hex');

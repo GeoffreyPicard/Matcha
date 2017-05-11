@@ -234,12 +234,13 @@ const Rencontre = {
 			var tag3 = tab[9];
 			var tmp;
 
-			/*while (info[i])
+			while (info[i])
 			{
 				if (info[i].age < age_min || info[i].age > age_max)
 				{
 					info.splice(i, 1);
 					i--;
+					
 				}
 				i++;
 			}
@@ -250,10 +251,12 @@ const Rencontre = {
 				{
 					info.splice(i, 1);
 					i--;
+					
 				}
 				i++;
 			}
 			i = 0;
+
 			while (info[i])
 			{
 				if (info[i].distance < loc_min || info[i].distance > loc_max)
@@ -262,7 +265,21 @@ const Rencontre = {
 					i--;
 				}
 				i++;
-			} */
+			}
+			i = 0;
+			if (tag1 != "aucun" || tag2 != "aucun" || tag3 != "aucun")
+			{
+			while (info[i])
+			{
+				if (info[i].intere.indexOf(tag1) === -1 && info[i].intere.indexOf(tag2) === -1 && info[i].intere.indexOf(tag3) === -1)
+				{
+					info.splice(i, 1);
+					i--;
+				}
+				i++;
+			}
+		}
+			
 			i = 0;
 			if (tri === "reset" || tri === "location")
 			{
@@ -351,8 +368,9 @@ const Rencontre = {
 				if (tg === 1)
 				{
 					str = pak[0].interests;
+					if (str != null)
+					{
 					var tab = str.split(' ');
-					//console.log(tab);
 					var i = 0;
 					var j = 0;
 					var k = 0;
@@ -383,6 +401,7 @@ const Rencontre = {
 						}
 					j++;
 					}
+				}
 				}
 				return callback(info);
 			},

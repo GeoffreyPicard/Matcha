@@ -200,11 +200,25 @@ app.post('/rencontre', function (req, res, next){
 	}
 	else
 	{
-		var info = {login: req.session.user, age_min: req.body.age_min, age_max: req.body.age_max, pop_min: req.body.pop_min, pop_max: req.body.pop_max, loc_min: req.body.loc_max, loc_max: req.body.loc_max, tag1: req.body.tag1, tag2: req.body.tag2, tag3: req.body.tag3};
+		var info = {login: req.session.user, age_min: req.body.age_min, age_max: req.body.age_max, pop_min: req.body.pop_min, pop_max: req.body.pop_max, loc_min: req.body.loc_min, loc_max: req.body.loc_max, tag1: req.body.tag1, tag2: req.body.tag2, tag3: req.body.tag3};
 		Rencontre.Modiffiltre(info, function (data) {
 			res.json({reponse: "yes"});
 		});
 	}
+})
+
+app.get('/profile/:login', function (req, res, next){
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+		let Users = require('./models/profiles.js');
+		var info = {login: req.session.user, password: req.session.password, login_ext: req.params.login};
+		Users.Donnees(info, function (data) {
+			res.render('./profiles.ejs', {user: data});
+		})
+	}
+
 })
 
 app.listen(8080);

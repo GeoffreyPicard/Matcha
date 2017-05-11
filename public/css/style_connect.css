@@ -63,3 +63,8 @@
 #ex1Slider .slider-selection {
     background: #BABABA;
 }
+
+.photo_types {
+    width: 100%;
+    height: 200px;
+}
