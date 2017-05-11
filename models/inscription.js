@@ -72,7 +72,8 @@ const User = {
 			if (err === 0)
 			{
 				var hash = crypto.createHash('whirlpool').update(user.password).digest('hex');
-				connection.query('INSERT INTO users (login, nom, prenom, email, password) VALUES (?, ?, ?, ?, ?)', [user.login, user.nom, user.prenom, user.email, hash]);
+				var filtre = "reset 18 99 0 500 0 3000 aucun aucun aucun";
+				connection.query('INSERT INTO users (login, nom, prenom, email, password, filtre) VALUES (?, ?, ?, ?, ?, ?)', [user.login, user.nom, user.prenom, user.email, hash, filtre]);
 			}
 			cb(null);
 		},

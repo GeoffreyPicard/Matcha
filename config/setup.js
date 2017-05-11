@@ -1,5 +1,6 @@
 const mysql = require('mysql'),
 	  async = require('async');
+	  
 
 const connection = mysql.createConnection({
   host : 'localhost',
@@ -34,6 +35,7 @@ async.waterfall([
 				age INT DEFAULT NULL,
 				lat VARCHAR(255) DEFAULT '',
 				longi VARCHAR(255) DEFAULT '',
+				filtre VARCHAR(255) DEFAULT '',
 				photo1 VARCHAR(255) DEFAULT '/image/photo_profil_vide.png',
 				photo2 VARCHAR(255) DEFAULT '/image/img_vide.jpg',
 				photo3 VARCHAR(255) DEFAULT '/image/img_vide.jpg',
@@ -66,15 +68,5 @@ async.waterfall([
 	connection.end();
 });
 
-/*
-console.log('Database matcha created')
-
-connection.query('CREATE TABLE IF NOT EXISTS users (id INT(9) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL, login VARCHAR(100) NOT NULL, prenom VARCHAR(100) NOT NULL, nom VARCHAR(100) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, sexe VARCHAR(25), orientation VARCHAR(25) DEFAULT \'Hetero\', bio TEXT, interests VARCHAR(255), age INT)')
-console.log('Table users created')
-
-connection.query('INSERT INTO users (name, login, email) VALUES (?, ?, ?)', ['Larry', '41', 'California, USA'], function(err, result) { } )
-//connection.query('INSERT INTO users SET login="pedro", nom="michel", prenom="henri", email')
-console.log('pedro created')
-*/
 
 

@@ -154,8 +154,6 @@ app.post('/newlocation.js', function (req, res, next){
 	else
 	{
 		var a_ecrire = {type:"success", phrase:"Les changements ont bien était pris en compte :)", tim: 3000, err:"no"};
-
-		db.query('UPDATE matcha.users SET lat= ?, longi= ? WHERE login= ?', [req.body.lat, req.body.longi, req.session.user]);
 		res.json({phrase: 'Votre localisation à bien était changée :)', theme: 'success', time: 3000, erreur: 'yes'});
 	}
 })
@@ -168,14 +166,44 @@ app.get('/rencontre', function (req, res, next){
 		let Rencontre = require('./models/rencontre.js');
 		var info = {login: req.session.user, password: req.session.password};
 		var tags;
+		var filtre;
+		Rencontre.Filtre(info, function (dato) {
+			filtre = dato;
+		})
 		Rencontre.Tags(info, function (data1) {
 			tags = data1;
 		})
 		Rencontre.Choix(info, function (data) {
-			Rencontre.Tri(data, function(data1) {
-				res.render('./rencontre.ejs', {user: data, tags: tags});
+			Rencontre.Tri(data, function(data2) {
+				data2.push(req.session.user);
+				Rencontre.Tri2(data2, function(data3) {
+					data2.push(req.session.user);
+					Rencontre.Stocktri(data2, function(datafinal) {
+						Rencontre.Trifinal(data2, function(trifinish) {
+							res.render('./rencontre.ejs', {user: data2, tags: tags, filtre: filtre});
+						})
+					})
+				})
 			});
 		})
+	}
+})
+
+app.post('/rencontre', function (req, res, next){
+	let Rencontre = require('./models/rencontre.js');
+	if (req.body.id)
+	{
+		var info = {id: req.body.id, login: req.session.user};
+		Rencontre.Modiftri(info, function (data) {
+			res.json({reponse: "yes"});
+		});
+	}
+	else
+	{
+		var info = {login: req.session.user, age_min: req.body.age_min, age_max: req.body.age_max, pop_min: req.body.pop_min, pop_max: req.body.pop_max, loc_min: req.body.loc_max, loc_max: req.body.loc_max, tag1: req.body.tag1, tag2: req.body.tag2, tag3: req.body.tag3};
+		Rencontre.Modiffiltre(info, function (data) {
+			res.json({reponse: "yes"});
+		});
 	}
 })
 

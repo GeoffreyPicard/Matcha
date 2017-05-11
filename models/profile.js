@@ -90,8 +90,19 @@ const Profile = {
 		function(cb){
 			res = info.intere.split(" ");
 			var j = 0;
+			var i = 0;
 			while (res[j])
 			{
+				i = j + 1;
+				while (res[i - 1])
+				{
+					if (res[i] === res[j])
+					{
+						a_ecrire = {type:"error", phrase:"Vous avez mis deux fois le même interêt !", tim: 3000, err:"yes"};
+						return callback(a_ecrire);
+					}
+					i++;
+				}
 				if (res[j].strlen > 240)
 				{
 					a_ecrire = {type:"error", phrase:"L'interêt est trop long !", tim: 3000, err:"yes"};

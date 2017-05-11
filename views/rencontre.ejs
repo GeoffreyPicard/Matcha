@@ -52,52 +52,53 @@
 <section>
 <div class="container" style="background-color: white;">
 </br>
-  <a href="/rencontre" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-primary">Reset</a>
-  <a href="/rencontre" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-primary">Age</a>
-  <a href="/rencontre" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-primary">Localisation</a>
-  <a href="/rencontre" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-primary">Popularité</a>
-  <a href="/rencontre" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-primary">Tags</a>
+  <button id="reset" value="reset" onclick="filtre(this.id);" type="button" class="btn btn-primary">Reset</button>
+  <button id="age" value="age" onclick="filtre(this.id);" type="button" class="btn btn-primary">Age</button>
+  <button id="localisation" value="localisation" onclick="filtre(this.id);" type="button" class="btn btn-primary">Localisation</button>
+  <button id="popularite" value="popularite" onclick="filtre(this.id);" type="button" class="btn btn-primary">Popularité</button>
+  <button id="tags" value="tags" onclick="filtre(this.id);" type="button" class="btn btn-primary">Tags</button>
   </br>
   </br>
   <div>
   <p>
   <label for="amount">Filtre par âge:</label>
-  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  <input type="text" id="amount" value="<%= filtre[1] %>" name="<%= filtre[2] %>" readonly style="border:0; color:#f6931f; font-weight:bold;">
   </p>
   <div id="slider-range"></div>
   </div>
   <div>
   <p>
   <label for="amount2">Filtre par popularité:</label>
-  <input type="text" id="amount2" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  <input type="text" id="amount2" value="<%= filtre[3] %>" name="<%= filtre[4] %>" readonly style="border:0; color:#f6931f; font-weight:bold;">
   </p>
   <div id="slider-range2"></div>
   </div>
   <div>
   <p>
   <label for="amount3">Filtre par Localisation:</label>
-  <input type="text" id="amount3" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  <input type="text" id="amount3" value="<%= filtre[5] %>" name="<%= filtre[6] %>" readonly style="border:0; color:#f6931f; font-weight:bold;">
   </p>
   <div id="slider-range3"></div>
   </div>
 </br>
   <div>
    <p style="border:0; font-weight:bold;"> Filtre par tags: </p>
-    <select class="selectpicker">
+    <select id="tag1" class="selectpicker">
     <% for(var i= 0; i < tags.length; i++) { %>
     <option><%= tags[i] %></option>
     <% } %>
     </select>
-    <select class="selectpicker">
+    <select id="tag2" class="selectpicker">
     <% for(var i= 0; i < tags.length; i++) { %>
     <option><%= tags[i] %></option>
     <% } %>
     </select>
-    <select class="selectpicker">
+    <select id="tag3" class="selectpicker">
     <% for(var i= 0; i < tags.length; i++) { %>
     <option><%= tags[i] %></option>
     <% } %>
     </select>
+  <button id="filtre2" value="" onclick="filtre2();" type="button" class="btn btn-primary">Appliquer les filtres</button>
   </div>
 
 </br>
@@ -108,27 +109,28 @@
 <div class="container">
     <div class="row">
       <ul class="thumbnails list-unstyled">
-        <% for(var i = 1; i <= user[0]; i++) { %>
+        <% for(var i = 0; i < user.length; i++) { %>
         <li class="col-md-3 col-sm-5">
           <div class="thumbnail" style="padding: 0">
             <div style="padding:4px">
-              <img alt="300x200" style="width: 100%" src="<%= user[i].photo1 %>">
+              <img alt="300x200" style="height: 150px;" src="<%= user[i].photo1 %>">
             </div>
             <div class="caption">
               <h2><%= user[i].nom %></h2>
               <h2><%= user[i].prenom %></h2>
 
               <p>Age : <%= user[i].age %></p>
-              <p><i class="icon icon-map-marker"></i> Place, Country</p>
+              <p><i class="icon icon-map-marker"></i> Distance: <%= user[i].distance %> km</p>
             </div>
             <div class="modal-footer" style="text-align: left">
+              <p>Popularité : <%= user[i].popularite %></p>
               <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= user[i].populatite %>%;">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= user[i].popularite %>%;">
                     <span class="sr-only"><%= user[i].popularite %>% Complete</span>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4"><b>60%</b><br/><small>FUNDED</small></div>
+                <div class="col-md-4"><b><%= user[i].popularite %></b><br/><small>FUNDED</small></div>
                 <div class="col-md-4"><b>$400</b><br/><small>PLEDGED</small></div>
                 <div class="col-md-4"><b>18</b><br/><small>DAYS</small></div>
               </div>
