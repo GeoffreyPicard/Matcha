@@ -28,7 +28,7 @@ const Profiles = {
 			tab.photo3 = pak[0].photo3;
 			tab.photo4 = pak[0].photo4;
 			tab.photo5 = pak[0].photo5;
-			tab.login = info.login;
+			tab.login = info.login_ext;
 			tab.lat = pak[0].lat;
 			tab.longi = pak[0].longi;
 			if (!pak[0].age)

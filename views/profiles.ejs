@@ -57,9 +57,10 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="<%= user.photo1 %>" style='width: 150px' class="img-circle img-responsive"> </div>
-                
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
+                    <button type="button" class="btn btn-primary">Liker <%= user.login %> <span class="glyphicon glyphicon-heart"></span></span></button>
+                    <button type="button" class="btn btn-danger pull-right" style="margin-left: 10px;">Bloquer <%= user.login %> <span class="glyphicon glyphicon-remove"></span></button>
                     <tbody>
                       <tr>
                         <td>Nom:</td>
@@ -119,8 +120,9 @@
               </div>
             </div>
                  <div class="panel-footer">
-                      <a href="/edit" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                      <a href="/rencontre" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Retour <span class="glyphicon glyphicon-chevron-left"></span></a>
                         <span class="pull-right">
+                    <button type="button" class="btn btn-danger pull-right">Faux compte ! <span class="glyphicon glyphicon-remove"></span></button>
                            
                             
                         </span>
