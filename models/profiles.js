@@ -65,6 +65,116 @@ const Profiles = {
 	console.log("termine");
 	connection.end();
 });
+	},
+
+	Profil_liker: function (info, callback) {
+		var res;
+		async.waterfall([
+		function(cb){
+			var tab = connection.query('SELECT likes FROM matcha.users WHERE login= ?', [info.login], cb);
+		},
+		function(pak, res, cb){
+			if (pak[0])
+			{
+				if (pak[0].likes)
+					var pos = pak[0].likes.indexOf(info.login_ext);
+				if (pos !== -1)
+				{
+					res.like = "display:none";
+					res.dislike = "";
+				}
+				else
+				{
+					res.like = "";
+					res.dislike = "display:none";
+				}
+				if (!pak[0].likes)
+				{
+					res.like = "";
+					res.dislike = "display:none";
+				}
+			}
+			return callback(res);
+		},
+], function(err){
+	console.log("termine");
+	connection.end();
+});
+	},
+
+	Like: function (info, callback) {
+		var str;
+		async.waterfall([
+		function(cb){
+			var tab = connection.query('SELECT likes FROM matcha.users WHERE login= ?', [info.login], cb);
+		},
+		function(pak, res, cb){
+			if (pak[0])
+				str = pak[0].likes;
+			cb(null);
+		},
+		function(cb){
+			if (str !== null)
+			{
+				tab = str.split(",");
+				tab.push(info.login_ext);
+				var res = tab.toString();
+				if (res[0] === ',')
+					res = res.slice(1, res.length);
+				connection.query('UPDATE matcha.users SET likes= ? WHERE login= ?', [res, info.login]);
+			}
+			if (str === null)
+				connection.query('UPDATE matcha.users SET likes= ? WHERE login= ?', [info.login_ext, info.login]);
+			cb(null);
+		},
+		function(cb){
+			return callback(info);
+		},
+], function(err){
+	console.log("termine");
+	connection.end();
+});
+	},
+
+	Dislike: function (info, callback) {
+		async.waterfall([
+		function(cb){
+			var tab = connection.query('SELECT likes FROM matcha.users WHERE login= ?', [info.login], cb);
+		},
+		function(pak, res, cb){
+			if (pak[0])
+				str = pak[0].likes;
+			cb(null);
+		},
+		function(cb){
+			if (str !== null)
+			{
+				tab = str.split(",");
+				var i = 0;
+				while (tab[i])
+				{
+					if (tab[i] === info.login_ext)
+						tab.splice(i, 1);
+					i++;
+				}
+				var res = tab.toString();
+				if (res === null)
+				{
+					console.log("pouet");
+					connection.query('UPDATE matcha.users SET likes= NULL WHERE login= ?', [info.login]);
+				}
+				else
+					connection.query('UPDATE matcha.users SET likes= ? WHERE login= ?', [res, info.login]);
+			}
+			cb(null);
+		},
+		function(cb){
+			return callback(info);
+		},
+], function(err){
+	console.log("termine");
+	connection.end();
+});
 	}
 }
 

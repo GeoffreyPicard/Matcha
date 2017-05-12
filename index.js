@@ -212,13 +212,30 @@ app.get('/profile/:login', function (req, res, next){
 		res.redirect('/');
 	else
 	{
+		var dusplay;
 		let Users = require('./models/profiles.js');
 		var info = {login: req.session.user, password: req.session.password, login_ext: req.params.login};
+		Users.Profil_liker(info, function (data1) {
+			dusplay = data1;
+		})
 		Users.Donnees(info, function (data) {
-			res.render('./profiles.ejs', {user: data});
+			res.render('./profiles.ejs', {user: data, dusplay: dusplay});
 		})
 	}
+})
 
+app.post('/like', function (req, res, next) {
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+		let Users = require('./models/profiles.js');
+		var info = {login: req.session.user, login_ext: req.body.login_ext};
+		if (req.body.type === "like")
+			Users.Like (info, function (data) {})
+		else
+			Users.Dislike (info, function (data) {})
+	}
 })
 
 app.listen(8080);

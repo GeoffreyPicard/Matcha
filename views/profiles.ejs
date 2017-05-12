@@ -59,7 +59,8 @@
                 <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="<%= user.photo1 %>" style='width: 150px' class="img-circle img-responsive"> </div>
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
-                    <button type="button" class="btn btn-primary">Liker <%= user.login %> <span class="glyphicon glyphicon-heart"></span></span></button>
+                    <button id="button_like" value="<%= user.login %>" style="<%= dusplay.like %>;" type="button" class="btn btn-primary">Liker <%= user.login %> <span class="glyphicon glyphicon-heart"></span></span></button>
+                    <button id="button_dislike" style="<%= dusplay.dislike %>;" value="<%= user.login %>" type="button" class="btn btn-danger">Disliker <%= user.login %> <span class="glyphicon glyphicon-remove"></span></span></button>
                     <button type="button" class="btn btn-danger pull-right" style="margin-left: 10px;">Bloquer <%= user.login %> <span class="glyphicon glyphicon-remove"></span></button>
                     <tbody>
                       <tr>
@@ -138,6 +139,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMREstjS_JgXU5xx1l3kesHy1Kevxq19Q"
     async defer></script>
 <script type="text/javascript" src="../static/js/map.js"></script>
+<script type="text/javascript" src="../static/js/like.js"></script>
 
 
     </body>

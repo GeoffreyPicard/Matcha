@@ -36,6 +36,7 @@ async.waterfall([
 				lat VARCHAR(255) DEFAULT '',
 				longi VARCHAR(255) DEFAULT '',
 				filtre VARCHAR(255) DEFAULT '',
+				likes TEXT,
 				photo1 VARCHAR(255) DEFAULT '/image/photo_profil_vide.png',
 				photo2 VARCHAR(255) DEFAULT '/image/img_vide.jpg',
 				photo3 VARCHAR(255) DEFAULT '/image/img_vide.jpg',
