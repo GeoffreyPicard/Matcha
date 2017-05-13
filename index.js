@@ -6,6 +6,11 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 const crypto = require("crypto");
+//var Server = require('socket.io');
+//var server = require('http').createServer(app);  
+//var io = require('socket.io')(server);
+
+
 //var sqlinjection = require('sql-injection');
 //app.use(sqlinjection);
 var mysql      = require('mysql');
@@ -19,14 +24,14 @@ app.use(session({secret: "Shh, its a secret!"}));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
+const server = app.listen(8080, () => {
+  console.log('listening on *:8080');
+});
 
-
+const io = require('socket.io')(server);
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
  
-
-
-
 app.get('/', function (req, res, next){
 	req.session.destroy();
 	if (req.session === 'undefined')
@@ -272,6 +277,13 @@ app.get('/chat', function (req, res, next) {
 	{
 		let Chat = require('./models/chat.js');
 		var info = {login: req.session.user};
+		io.on('connection', (socket) => {
+  		console.log('a user connected');
+ 
+  		socket.on('disconnect', () => {
+    		console.log('user disconnected');
+  		});
+		});
 		Chat.Donnees (info, function (data) {
 			res.render('./chat.ejs', {user: data});
 		})
@@ -291,4 +303,4 @@ app.get('/chat/:profil', function (req, res, next) {
 	}
 })
 
-app.listen(8080);
+server.listen(8080);

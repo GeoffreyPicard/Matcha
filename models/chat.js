@@ -15,7 +15,10 @@ const Chat = {
 				return callback();
 			else
 			{
-				var tab = pak[0].messagerie.split(",");
+				if (pak[0].messagerie)
+					var tab = pak[0].messagerie.split(",");
+				else
+					var tab = "";
 				info = tab;
 			}
 			cb(null);
