@@ -29,7 +29,7 @@
         <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li ><a href="/rencontre">Rencontre</a></li>   
-                <li><a href="#features">Chat</a></li>
+                <li><a href="/chat">Chat</a></li>
                 <li><a href="#testimonials">Activité</a></li>
                 <li><a href="/">Déconnection</a></li>
                 
@@ -41,11 +41,9 @@
 </nav>
 
 <section id="home">
-<div class="container">
-</br>
+<div class="container-fluid" style="margin-top: 27px;">
       <div class="row">
       <div class="col-md-5  toppad  pull-right col-md-offset-3 ">   
-       <br>
       </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 toppad" >
    
@@ -61,7 +59,7 @@
                   <table class="table table-user-information">
                     <button id="button_like" value="<%= user.login %>" style="<%= dusplay.like %>;" type="button" class="btn btn-primary">Liker <%= user.login %> <span class="glyphicon glyphicon-heart"></span></span></button>
                     <button id="button_dislike" style="<%= dusplay.dislike %>;" value="<%= user.login %>" type="button" class="btn btn-danger">Disliker <%= user.login %> <span class="glyphicon glyphicon-remove"></span></span></button>
-                    <button type="button" class="btn btn-danger pull-right" style="margin-left: 10px;">Bloquer <%= user.login %> <span class="glyphicon glyphicon-remove"></span></button>
+                    <a href="/rencontre"><button id="button_block" value="<%= user.login %>" type="button" class="btn btn-danger pull-right" style="margin-left: 10px;">Bloquer <%= user.login %> <span class="glyphicon glyphicon-remove"></span></button></a>
                     <tbody>
                       <tr>
                         <td>Nom:</td>
@@ -123,7 +121,7 @@
                  <div class="panel-footer">
                       <a href="/rencontre" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Retour <span class="glyphicon glyphicon-chevron-left"></span></a>
                         <span class="pull-right">
-                    <button type="button" class="btn btn-danger pull-right">Faux compte ! <span class="glyphicon glyphicon-remove"></span></button>
+                    <button id="button_fauxprofil" value="<%= user.login %>" type="button" class="btn btn-danger pull-right">Faux compte ! <span class="glyphicon glyphicon-remove"></span></button>
                            
                             
                         </span>

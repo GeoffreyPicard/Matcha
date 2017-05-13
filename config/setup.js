@@ -37,6 +37,8 @@ async.waterfall([
 				longi VARCHAR(255) DEFAULT '',
 				filtre VARCHAR(255) DEFAULT '',
 				likes TEXT,
+				block TEXT,
+				messagerie TEXT,
 				photo1 VARCHAR(255) DEFAULT '/image/photo_profil_vide.png',
 				photo2 VARCHAR(255) DEFAULT '/image/img_vide.jpg',
 				photo3 VARCHAR(255) DEFAULT '/image/img_vide.jpg',
@@ -49,6 +51,13 @@ async.waterfall([
 			`CREATE TABLE IF NOT EXISTS secure (
 				email VARCHAR(255) DEFAULT '',
 				hashi TEXT)`,
+			cb);
+	},
+	function(pak, res, cb){
+		connection.query(
+			`CREATE TABLE IF NOT EXISTS fauxprofil (
+				profil VARCHAR(255) DEFAULT '',
+				login VARCHAR(255) DEFAULT '')`,
 			cb);
 	},
 	function(pak, res, cb){

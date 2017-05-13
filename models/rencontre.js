@@ -133,8 +133,11 @@ const Rencontre = {
 			var tab = connection.query('SELECT filtre FROM matcha.users WHERE login= ?',[info.login] , cb);
 		},
 		function(pak, res, cb){
-			var str = pak[0].filtre;
-			var tab = str.split(' ');
+			if (pak[0])
+			{
+				var str = pak[0].filtre;
+				var tab = str.split(' ');
+			}
 			return callback(tab);
 		},
 	], function(err){
@@ -171,7 +174,34 @@ const Rencontre = {
 			}
 			j++;
 		}
-		return callback(info);
+		async.waterfall([
+		function(cb){
+			var tab = connection.query('SELECT block FROM matcha.users WHERE login= ?',[login] , cb);
+		},
+		function(pak, res, cb){
+			if (pak[0])
+			{
+				var i = 0;
+				str = pak[0].block;
+				if (str != null)
+				{
+				while (info[i])
+				{
+					if (str.indexOf(info[i].login) >= 0)
+					{
+						info.splice(i, 1);
+						i--;
+					}
+					i++;
+				}
+			}
+			}
+			return callback(info);
+		},
+	], function(err){
+		console.log("termine");
+		connection.end();
+	});
 	},
 
 	Stocktri: function(info, callback) {

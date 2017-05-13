@@ -232,9 +232,62 @@ app.post('/like', function (req, res, next) {
 		let Users = require('./models/profiles.js');
 		var info = {login: req.session.user, login_ext: req.body.login_ext};
 		if (req.body.type === "like")
+		{
+			Users.Like_message (info, function (data) {})
 			Users.Like (info, function (data) {})
+		}
 		else
 			Users.Dislike (info, function (data) {})
+	}
+})
+
+app.post('/block', function (req, res, next) {
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+		let Users = require('./models/profiles.js');
+		var info = {login: req.session.user, login_ext: req.body.login_ext};
+		Users.Block (info, function (data) {})
+	}
+})
+
+app.post('/fauxprofil', function (req, res, next) {
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+		let Users = require('./models/profiles.js');
+		var info = {login: req.session.user, login_ext: req.body.login_ext};
+		Users.Fauxprofil (info, function (type_fail) {
+			res.json({phrase: type_fail.phrase, theme: type_fail.type, time: 3000, erreur: type_fail.err});
+		})
+	}
+})
+
+app.get('/chat', function (req, res, next) {
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+		let Chat = require('./models/chat.js');
+		var info = {login: req.session.user};
+		Chat.Donnees (info, function (data) {
+			res.render('./chat.ejs', {user: data});
+		})
+	}
+})
+
+app.get('/chat/:profil', function (req, res, next) {
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+		let Chat = require('./models/chat.js');
+		var info = {login: req.session.user};
+		Chat.Donnees (info, function (data) {
+			res.render('./chat.ejs', {user: data});
+		})
 	}
 })
 

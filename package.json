@@ -22,6 +22,7 @@
     "npm": "^4.4.4",
     "promise": "^7.1.1",
     "sendmail": "^1.1.1",
+    "socket.io": "^2.0.1",
     "sql-injection": "0.0.5",
     "validator": "^7.0.0"
   },

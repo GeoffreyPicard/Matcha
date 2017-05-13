@@ -31,7 +31,7 @@
         <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li ><a href="/rencontre">Rencontre</a></li>   
-                <li><a href="#features">Chat</a></li>
+                <li><a href="/chat">Chat</a></li>
                 <li><a href="#testimonials">Activité</a></li>
                 <li><a href="/">Déconnection</a></li>
                 
@@ -43,14 +43,8 @@
 </nav>
 
 
-
-
-</br>
-</br>
-</br>
-</br>
 <section>
-<div class="container" style="background-color: white;">
+<div class="container-fluid marge_top" style="background-color: white;">
 </br>
   <button id="reset" value="reset" onclick="filtre(this.id);" type="button" class="btn btn-primary">Reset</button>
   <button id="age" value="age" onclick="filtre(this.id);" type="button" class="btn btn-primary">Age</button>
@@ -104,16 +98,14 @@
   <button id="filtre2" value="" onclick="filtre2();" type="button" class="btn btn-primary">Appliquer les filtres</button>
   </div>
 
-</br>
 </div>
 </section>
-</br>
 <section>
-<div class="container">
+<div class="container-fluid marge_cote">
     <div class="row">
       <ul class="thumbnails list-unstyled">
         <% for(var i = 0; i < user.length; i++) { %>
-        <li class="col-md-3 col-sm-5">
+        <li class="col-md-2 col-sm-4">
           <div class="thumbnail" style="padding: 0">
             <div style="padding:4px">
               <img alt="300x200" class="photo_types" src="<%= user[i].photo1 %>">
