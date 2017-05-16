@@ -31,7 +31,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ><a href="/rencontre">Rencontre</a></li>   
                 <li><a href="#features">Chat</a></li>
-                <li><a href="#testimonials">Activité</a></li>
+                <li><a href="#testimonials">Activité <% if (user.notif === "yes") { %><span class="glyphicon glyphicon-info-sign"></span> <% } %></a></li>
                 <li><a href="/">Déconnection</a></li>
                 
             </ul>
@@ -217,6 +217,8 @@
     async defer></script>
 <script type="text/javascript" src="static/js/profile.js"></script>
 <script type="text/javascript" src="static/js/new_position.js"></script>
+<input id="login" type="hidden" name="code" value="<%= user.login %>"/>
+
 
 </div>            
 </section>

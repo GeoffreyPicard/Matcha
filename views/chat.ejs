@@ -5,11 +5,14 @@
         <title>Matcha</title>
         <meta charset="UTF-8">
         <!-- Latest compiled and minified CSS -->
+
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-
+        <script type = "text/javascript" 
+         src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/noty/packaged/jquery.noty.packaged.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="/static/css/style_connect.css" />
         <script type="text/javascript" src="../static/js/chat.js"></script>
@@ -35,7 +38,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ><a href="/rencontre">Rencontre</a></li>   
                 <li><a href="/chat">Chat</a></li>
-                <li><a href="#testimonials">Activité</a></li>
+                <li><a href="/activite" id="activite">Activité <% if (notif === "yes") { %><span class="glyphicon glyphicon-info-sign"></span> <% } %></a></li>
                 <li><a href="/">Déconnection</a></li>
                 
             </ul>
@@ -61,7 +64,7 @@
             <a href="/chat/<%= user[i] %>"><div class="row sideBar-body">
               <div class="col-sm-3 col-xs-3 sideBar-avatar">
                 <div class="avatar-icon">
-                  <p>image</p>
+                  <p></p>
                 </div>
               </div>
               <div class="col-sm-9 col-xs-9 sideBar-main">
@@ -92,11 +95,11 @@
         <div class="row heading">
           <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
             <div class="heading-avatar-icon">
-              <p>Image</p>
+              <p></p>
             </div>
           </div>
           <div class="col-sm-8 col-xs-7 heading-name">
-            <a class="heading-name-meta">Ankit Jain
+            <a href="/profile/<%= dest_user %>" class="heading-name-meta"><%= dest_user %>
             </a>
             <span class="heading-online">Online</span>
           </div>
@@ -108,56 +111,45 @@
 
         <!-- Message Box -->
         <div class="row message" id="conversation">
-
-          <div class="row message-previous">
-            <div class="col-sm-12 previous">
-              <a onclick="previous(this)" id="ankitjain28" name="20">
-              Show Previous Message!
-              </a>
-            </div>
-          </div>
-
-          <div class="row message-body">
-            <div class="col-sm-12 message-main-receiver">
-              <div class="receiver">
-                <div class="message-text">
-                 Hyy, Its Awesome..!
+          <% for(var i = 0; i < message.length; i++) { if (message[i].envoi === myuser) { %>
+           <div class="row message-body">
+              <div class="col-sm-12 message-main-sender">
+                <div class="sender">
+                  <div class="message-text">
+                  <p><%= message[i].msg %></p>
+                  </div>
                 </div>
-                <span class="message-time pull-right">
-                  Sun
-                </span>
+              </div>
+            </div> 
+            <% } else { %>
+            <div id="zone_msg" class="row message-body">
+              <div class="col-sm-12 message-main-receiver">
+                <div class="receiver">
+                  <div class="message-text">
+                    <p><%= message[i].msg %></p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="row message-body">
-            <div class="col-sm-12 message-main-sender">
-              <div class="sender">
-                <div class="message-text">
-                  Thanks n I know its awesome...!
-                </div>
-                <span class="message-time pull-right">
-                  Sun
-                </span>
-              </div>
-            </div>
-          </div>
+            <% }} %>         
         </div>
         <!-- Message Box End -->
 
         <!-- Reply Box -->
         <div class="row reply">
           <div class="col-sm-1 col-xs-1 reply-emojis">
-            <i class="fa fa-smile-o fa-2x"></i>
+            <i class="fa fa-smile-o"></i>
           </div>
           <div class="col-sm-9 col-xs-9 reply-main">
             <textarea class="form-control" rows="1" id="comment"></textarea>
           </div>
           <div class="col-sm-1 col-xs-1 reply-recording">
-            <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
+           <i id="send_message">Envoyer</i>
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </div>
           <div class="col-sm-1 col-xs-1 reply-send">
-            <i class="fa fa-send fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </div>
         </div>
         <!-- Reply Box End -->
@@ -166,3 +158,10 @@
     </div>
     <!-- App One End -->
   </section>
+<input id="login" type="hidden" name="code" value="<%= myuser %>"/>
+<input id="test" type="hidden" name="code" value="profile"/>
+<input id="dest_user" type="hidden" name="code" value="<%= dest_user %>"/>
+  
+        <script type="text/javascript" src="../static/js/socket.js"></script>
+        
+  

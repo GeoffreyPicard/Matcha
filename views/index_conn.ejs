@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="static/css/style_connect.css" />
         <script type = "text/javascript" 
          src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-         <script type="text/javascript" src="js/noty/packaged/jquery.noty.packaged.min.js"></script>
+         <script type="text/javascript" src="/js/noty/packaged/jquery.noty.packaged.min.js"></script>
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMREstjS_JgXU5xx1l3kesHy1Kevxq19Q"
     async defer></script>
@@ -33,7 +33,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ><a href="/rencontre">Rencontre</a></li>   
                 <li><a href="/chat">Chat</a></li>
-                <li><a href="#testimonials">Activité</a></li>
+                <li><a href="/activite" id="activite">Activité <% if (user.notif === "yes") { %><span class="glyphicon glyphicon-info-sign"></span> <% } %></a></li>
                 <li><a href="/">Déconnection</a></li>
                 
             </ul>
@@ -133,8 +133,12 @@
     </div>
 
 </section>
+<input id="login" type="hidden" name="code" value="<%= user.login %>"/>
+<input id="test" type="hidden" name="code" value="profile"/>
 
-
+        <script type="text/javascript" src="../static/js/socket.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+        
 
 
     </body>

@@ -282,6 +282,23 @@ const Profiles = {
 });
 	},
 
+	Testphoto: function (info, callback) {
+		async.waterfall([
+		function(cb){
+			var tab = connection.query('SELECT photo1 FROM matcha.users WHERE login= ?', [info.login], cb);
+		},
+		function(pak, res, cb){
+			if (pak[0].photo1 === "/image/photo_profil_vide.png")
+				return callback("no_photo");
+			else
+				return callback("yes_photo");
+		},
+	], function(err){
+	console.log("termine");
+	connection.end();
+	});
+	},
+
 	Like_message: function (info, callback) {
 		async.waterfall([
 		function(cb){

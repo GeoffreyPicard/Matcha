@@ -6,10 +6,10 @@ const fs = require('fs');
 const Profile = {
 
 	Donnees: function(info, callback) {
-		var tab = {nom: '', prenom: '', age: '', sexe: '', orientation: '', bio: '', intere: '', popularite: '', sexe_homme: '', sexe_femme: '', ori_hommo: '', ori_hetero : '', ori_bi: '', photo1: '', photo2: '', photo3: '', photo4: '', photo5: '', lat: '', longi: ''};
+		var tab = {nofitf: '', nom: '', prenom: '', age: '', sexe: '', orientation: '', bio: '', intere: '', popularite: '', sexe_homme: '', sexe_femme: '', ori_hommo: '', ori_hetero : '', ori_bi: '', photo1: '', photo2: '', photo3: '', photo4: '', photo5: '', lat: '', longi: ''};
 		async.waterfall([
 		function(cb){
-			var tab = connection.query('SELECT nom, prenom, age, sexe, orientation, email, bio, interests, popularite, photo1, photo2, photo3, photo4, photo5, lat, longi FROM matcha.users WHERE login= ?', [info.login], cb);
+			var tab = connection.query('SELECT notif, nom, prenom, age, sexe, orientation, email, bio, interests, popularite, photo1, photo2, photo3, photo4, photo5, lat, longi FROM matcha.users WHERE login= ?', [info.login], cb);
 			return tab;
 		},
 		function(pak, res, cb){
@@ -29,6 +29,7 @@ const Profile = {
 			tab.photo5 = pak[0].photo5;
 			tab.login = info.login;
 			tab.lat = pak[0].lat;
+			tab.notif = pak[0].notif;
 			tab.longi = pak[0].longi;
 			if (!pak[0].age)
 				tab.age = '18';

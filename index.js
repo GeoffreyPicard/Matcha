@@ -31,6 +31,98 @@ const server = app.listen(8080, () => {
 const io = require('socket.io')(server);
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+var allClients = [];
+
+io.on('connection', (socket) => {
+	socket.on('user', function (user) {
+		socket["info"] = user;
+		allClients.push(socket);
+		console.log("user connected");
+		db.query('UPDATE matcha.users SET derniereconnection= ? WHERE login= ?', ["en ligne", user.login]);
+  	})
+
+  	socket.on('message_send', function (user) {
+  		var i = 0;
+  		var notif = user.login + " vous à envoyé un message !";
+  		user.notif = notif;
+		db.query('UPDATE matcha.users SET notif= ? WHERE login= ?', ["yes", user.dest_user]);
+		db.query('INSERT INTO notification (login, notif) VALUES (?, ?)', [user.dest_user, notif]);
+		db.query('INSERT INTO message (envoi, recoi, msg) VALUES (?, ?, ?)', [user.login, user.dest_user, user.message]);
+  		while (allClients[i])
+  		{
+  			if (allClients[i].info.login === user.dest_user)
+  			{
+  				allClients[i].emit('send_msg', user);
+  				allClients[i].emit('notif', user);
+  			}
+  			i++;
+  		}
+  	})
+
+  	socket.on('like', function (user) {
+  		let Chat = require('./models/chat.js');
+		var info = {login: user.login, login_ext: user.dest_user};
+		Chat.Verif_like(info, function (data) {
+			if (data === "no")
+	  			var notif = user.login + " vous à liké !";
+	  		else
+	  			var notif = user.login + " vous à liké en retour, match !";
+			db.query('UPDATE matcha.users SET notif= ? WHERE login= ?', ["yes", user.dest_user]);
+			db.query('INSERT INTO notification (login, notif) VALUES (?, ?)', [user.dest_user, notif]);
+  			user.notif = notif;
+  		var i = 0;
+  		while (allClients[i])
+  		{
+  			if (allClients[i].info.login === user.dest_user)
+  				allClients[i].emit('notif', user);
+  			i++;
+  		}
+		})
+  	})
+
+  	socket.on('dislike', function (user) {
+  		var notif = user.login + " ne vous like plus :(";
+		db.query('UPDATE matcha.users SET notif= ? WHERE login= ?', ["yes", user.dest_user]);
+		db.query('INSERT INTO notification (login, notif) VALUES (?, ?)', [user.dest_user, notif]);
+  		user.notif = notif;
+  		var i = 0;
+  		while (allClients[i])
+  		{
+  			if (allClients[i].info.login === user.dest_user)
+  				allClients[i].emit('notif', user);
+  			i++;
+  		}
+  	})
+
+  	socket.on('visit', function (user) {
+  		var notif = user.login_me + " a visité votre profil !";
+  		user.notif = notif;
+		db.query('UPDATE matcha.users SET notif= ? WHERE login= ?', ["yes", user.login_ext]);
+		db.query('INSERT INTO notification (login, notif) VALUES (?, ?)', [user.login_ext, notif]);
+		var i = 0;
+		while (allClients[i])
+  		{
+  			if (allClients[i].info.login === user.login_ext)
+  				allClients[i].emit('notif', user);
+  			i++;
+  		}
+  	})
+
+  	socket.on('activite', function (user) {
+		db.query('UPDATE matcha.users SET notif= ? WHERE login= ?', ["no", user.login]);
+  	})
+
+  	socket.on('disconnect', function () {
+  		console.log("user disconnect");
+  		var i = allClients.indexOf(socket);
+      	var info = allClients[i].info;
+      	allClients.splice(i, 1);
+		var temps = info.time + " à " + info.hour + "h" + info.minute;
+		db.query('UPDATE matcha.users SET derniereconnection= ? WHERE login= ?', [temps, info.login]);
+    })
+});
+
  
 app.get('/', function (req, res, next){
 	req.session.destroy();
@@ -92,6 +184,7 @@ app.get('/index', function (req, res, next){
 		var info = {login: req.session.user, password: req.session.password};
 		User.Donnees(info, function (data) {
 			res.render('index_conn.ejs', {user: data});
+			req.session.notif = data.notif;
 		})
   	}
 })
@@ -185,7 +278,7 @@ app.get('/rencontre', function (req, res, next){
 					data2.push(req.session.user);
 					Rencontre.Stocktri(data2, function(datafinal) {
 						Rencontre.Trifinal(data2, function(trifinish) {
-							res.render('./rencontre.ejs', {user: data2, tags: tags, filtre: filtre});
+							res.render('./rencontre.ejs', {user: data2, tags: tags, filtre: filtre, myuser: req.session.user, notif: req.session.notif});
 						})
 					})
 				})
@@ -224,7 +317,7 @@ app.get('/profile/:login', function (req, res, next){
 			dusplay = data1;
 		})
 		Users.Donnees(info, function (data) {
-			res.render('./profiles.ejs', {user: data, dusplay: dusplay});
+			res.render('./profiles.ejs', {user: data, dusplay: dusplay, myuser: req.session.user, notif: req.session.notif});
 		})
 	}
 })
@@ -238,11 +331,31 @@ app.post('/like', function (req, res, next) {
 		var info = {login: req.session.user, login_ext: req.body.login_ext};
 		if (req.body.type === "like")
 		{
-			Users.Like_message (info, function (data) {})
-			Users.Like (info, function (data) {})
+			Users.Testphoto (info, function (data) {
+			if (data === "yes_photo")
+			{
+				Users.Like_message (info, function (data) {})
+				Users.Like (info, function (data) {})
+			}
+			else
+				res.json({data});
+		})
 		}
 		else
 			Users.Dislike (info, function (data) {})
+	}
+})
+
+app.post('/testphoto', function (req, res, next) {
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+		let Users = require('./models/profiles.js');
+		var info = {login: req.session.user, login_ext: req.body.login_ext};
+		Users.Testphoto (info, function (data) {
+			console.log(data);
+		})
 	}
 })
 
@@ -277,15 +390,8 @@ app.get('/chat', function (req, res, next) {
 	{
 		let Chat = require('./models/chat.js');
 		var info = {login: req.session.user};
-		io.on('connection', (socket) => {
-  		console.log('a user connected');
- 
-  		socket.on('disconnect', () => {
-    		console.log('user disconnected');
-  		});
-		});
 		Chat.Donnees (info, function (data) {
-			res.render('./chat.ejs', {user: data});
+			res.render('./chat_menu.ejs', {user: data, myuser: req.session.user, notif: req.session.notif});
 		})
 	}
 })
@@ -296,9 +402,26 @@ app.get('/chat/:profil', function (req, res, next) {
 	else
 	{
 		let Chat = require('./models/chat.js');
-		var info = {login: req.session.user};
+		var info = {login: req.session.user, dest_user: req.params.profil};
+
 		Chat.Donnees (info, function (data) {
-			res.render('./chat.ejs', {user: data});
+			Chat.Message (info, function (messages) {
+				res.render('./chat.ejs', {user: data, myuser: req.session.user, dest_user: req.params.profil, message: messages, notif: req.session.notif});
+			})
+		})
+	}
+})
+
+app.get('/activite', function (req, res, next) {
+	if(!req.session.user)
+		res.redirect('/');
+	else
+	{
+		var info = {login: req.session.user};
+		req.session.notif = "no";
+		let Chat = require('./models/chat.js');
+		Chat.Notification (info, function (notif) {
+			res.render('./activite.ejs', {myuser: req.session.user, notif: notif});
 		})
 	}
 })

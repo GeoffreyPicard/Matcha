@@ -9,18 +9,20 @@ $("#button_like").click(function(){
     data: dataToSend,
     url: '/like',            
     success: function(data) {
-        //noty({layout: 'center', text: data.phrase, maxVisible: 1, type: data.theme, timeout : '2000', progressBar : true, theme: 'metroui', killer: true
-//});
+        noty({layout: 'center', text: "Vous devez posseder une photo de profil pour liker les autres utilisateurs", maxVisible: 1, type: "error", timeout : '2000', progressBar : true, theme: 'metroui', killer: true
+});
+	$('#button_dislike').hide();
+	$('#button_like').show();
 
     }
     });
 });
 
 $("#button_dislike").click(function(){
-	var login_ext = document.getElementById("button_dislike").value;
-	$('#button_dislike').hide();
-	$('#button_like').show();
+    var login_ext = document.getElementById("button_dislike").value;
     var dataToSend = {login_ext: login_ext, type: "dislike"};
+    $('#button_dislike').hide();
+    $('#button_like').show();
 
   $.ajax({
     type: 'POST',
@@ -69,3 +71,18 @@ $("#button_fauxprofil").click(function(){
     }
     });
 });
+
+//$("#button_fauxprofil").click(function(){
+  //  var dataToSend = {login_ext: login_ext};
+
+  /*$.ajax({
+    type: 'POST',
+    data: dataToSend,
+    url: '/fauxprofil',            
+    success: function(data) {
+        noty({layout: 'center', text: data.phrase, maxVisible: 1, type: data.theme, timeout : '2000', progressBar : true, theme: 'metroui', killer: true
+});
+
+    }
+    }); */
+//});

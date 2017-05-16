@@ -39,6 +39,8 @@ async.waterfall([
 				likes TEXT,
 				block TEXT,
 				messagerie TEXT,
+				notif VARCHAR(255) DEFAULT 'no',
+				derniereconnection VARCHAR(255),
 				photo1 VARCHAR(255) DEFAULT '/image/photo_profil_vide.png',
 				photo2 VARCHAR(255) DEFAULT '/image/img_vide.jpg',
 				photo3 VARCHAR(255) DEFAULT '/image/img_vide.jpg',
@@ -48,9 +50,24 @@ async.waterfall([
 	},
 	function(pak, res, cb){
 		connection.query(
+			`CREATE TABLE IF NOT EXISTS notification (
+				login VARCHAR(255) DEFAULT '',
+				notif TEXT)`,
+			cb);
+	},
+	function(pak, res, cb){
+		connection.query(
 			`CREATE TABLE IF NOT EXISTS secure (
 				email VARCHAR(255) DEFAULT '',
 				hashi TEXT)`,
+			cb);
+	},
+	function(pak, res, cb){
+		connection.query(
+			`CREATE TABLE IF NOT EXISTS message (
+				envoi VARCHAR(255) DEFAULT '',
+				recoi VARCHAR(255) DEFAULT '',
+				msg TEXT)`,
 			cb);
 	},
 	function(pak, res, cb){
