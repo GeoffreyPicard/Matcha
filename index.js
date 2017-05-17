@@ -167,6 +167,7 @@ app.post('/change_password.js', function (req, res, next){
 
 app.post('/index.js', function (req, res, next){
 	let User = require('./models/inscription.js');
+	db.query('UPDATE matcha.users SET lat = ?, longi = ? + 1 WHERE login= ?', [req.body.info.latitude, req.body.info.longitude, req.body.login]);
 	var info = {login: req.body.login, password: req.body.password};
 	User.New_connection(info, function (type_fail) {
 		res.json({phrase: type_fail.phrase, theme: type_fail.type, time: 3000, erreur: type_fail.err});
@@ -314,11 +315,20 @@ app.get('/profile/:login', function (req, res, next){
 		var dusplay;
 		let Users = require('./models/profiles.js');
 		var info = {login: req.session.user, password: req.session.password, login_ext: req.params.login};
-		Users.Profil_liker(info, function (data1) {
-			dusplay = data1;
-		})
-		Users.Donnees(info, function (data) {
-			res.render('./profiles.ejs', {user: data, dusplay: dusplay, myuser: req.session.user, notif: req.session.notif});
+		let Chat = require('./models/chat.js');
+		var dt = {dest_user: req.params.login};
+		Chat.Verif_profil (dt, function (data) {
+			if (data === "yes")
+			{
+				Users.Profil_liker(info, function (data1) {
+					dusplay = data1;
+				})
+				Users.Donnees(info, function (data) {
+					res.render('./profiles.ejs', {user: data, dusplay: dusplay, myuser: req.session.user, notif: req.session.notif});
+				})
+			}
+			else
+  				res.send('what???', 404);
 		})
 	}
 })
@@ -404,11 +414,18 @@ app.get('/chat/:profil', function (req, res, next) {
 	{
 		let Chat = require('./models/chat.js');
 		var info = {login: req.session.user, dest_user: req.params.profil};
-
-		Chat.Donnees (info, function (data) {
-			Chat.Message (info, function (messages) {
-				res.render('./chat.ejs', {user: data, myuser: req.session.user, dest_user: req.params.profil, message: messages, notif: req.session.notif});
+		var dt = {dest_user: req.params.profil};
+		Chat.Verif_profil (dt, function (data) {
+			if (data === "yes")
+			{
+			Chat.Donnees (info, function (data) {
+				Chat.Message (info, function (messages) {
+					res.render('./chat.ejs', {user: data, myuser: req.session.user, dest_user: req.params.profil, message: messages, notif: req.session.notif});
+				})
 			})
+			}
+			else
+				res.send('what???', 404);
 		})
 	}
 })
@@ -426,5 +443,9 @@ app.get('/activite', function (req, res, next) {
 		})
 	}
 })
+
+app.get('*', function(req, res){
+  res.send('what???', 404);
+});
 
 server.listen(8080);

@@ -69,7 +69,10 @@ function connection ()
   var login = document.getElementById("login").value;
   var password = document.getElementById("password").value;
   event.preventDefault();
-  var dataToSend = {login: login, password: password};
+  $.getJSON('//freegeoip.net/json/?callback=?', function(data) {
+    var info = JSON.stringify(data, null, 2);
+    info = JSON.parse(info);
+  var dataToSend = {login: login, password: password, info: info};
   $.ajax({
     type: 'POST',
     data: dataToSend,
@@ -84,4 +87,6 @@ function connection ()
         document.location.href='/index';
     }
     });
+  });
+
 }

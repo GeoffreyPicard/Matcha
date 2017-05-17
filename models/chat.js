@@ -82,6 +82,22 @@ const Chat = {
 			console.log("termine");
 			connection.end();
 		});
+	},
+
+	Verif_profil: function(info, callback) {
+		async.waterfall([
+		function(cb){
+			connection.query('SELECT login FROM matcha.users WHERE login= ?', [info.dest_user], cb);
+		},
+		function(pak, res, cb){
+			if (pak[0])
+				return callback("yes");
+			return callback("no");
+		},
+		], function(err){
+			console.log("termine");
+			connection.end();
+		});
 	}
 };
 
