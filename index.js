@@ -98,6 +98,7 @@ io.on('connection', (socket) => {
   	socket.on('visit', function (user) {
   		var notif = user.login_me + " a visité votre profil !";
   		user.notif = notif;
+		db.query('UPDATE matcha.users SET popularite = popularite + 1 WHERE login= ?', [user.login_ext]);
 		db.query('UPDATE matcha.users SET notif= ? WHERE login= ?', ["yes", user.login_ext]);
 		db.query('INSERT INTO notification (login, notif) VALUES (?, ?)', [user.login_ext, notif]);
 		var i = 0;
@@ -272,7 +273,7 @@ app.get('/rencontre', function (req, res, next){
 			tags = data1;
 		})
 		Rencontre.Choix(info, function (data) {
-			Rencontre.Tri(data, function(data2) {
+			Rencontre.Tri({data: data, info: info}, function(data2) {
 				data2.push(req.session.user);
 				Rencontre.Tri2(data2, function(data3) {
 					data2.push(req.session.user);

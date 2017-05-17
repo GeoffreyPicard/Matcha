@@ -28,7 +28,7 @@ async.waterfall([
 				email VARCHAR(255) DEFAULT '',
 				password VARCHAR(255) DEFAULT '',
 				sexe VARCHAR(255) DEFAULT '',
-				orientation VARCHAR(25) DEFAULT '',
+				orientation VARCHAR(25) DEFAULT 'Bi',
 				bio TEXT,
 				interests TEXT,
 				popularite INT(9) DEFAULT 0,

@@ -43,15 +43,15 @@ const Profile = {
 				tab.intere = 'inconnu';
 			if (pak[0].popularité === 0)
 				tab.popularite = '0';
-			if (pak[0].sexe === 'homme')
+			if (pak[0].sexe === 'Homme')
 				tab.sexe_homme = 'checked';
-			if (pak[0].sexe === 'femme')
+			if (pak[0].sexe === 'Femme')
 				tab.sexe_femme = 'checked';
-			if (pak[0].orientation === 'hetero')
+			if (pak[0].orientation === 'Hetero')
 				tab.ori_hetero = 'checked';
-			if (pak[0].orientation === 'hommo')
+			if (pak[0].orientation === 'Hommo')
 				tab.ori_hommo = 'checked';
-			if (pak[0].orientation === 'bi')
+			if (pak[0].orientation === 'Bi')
 				tab.ori_bi = 'checked';
 			cb(null);
 		},

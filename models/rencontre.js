@@ -95,18 +95,74 @@ const Rencontre = {
 	Tri: function(info, callback) {
 		var i = 0;
 		var j = 0;
-		var res = new Array;
-		while (i <= info[0])
+		var resu = new Array;
+		while (i <= info.data[0])
 		{
-			if (info[i].distance != 4848)
+			if (info.data[i].distance != 4848)
 			{
-				res[j] = info[i];
+				resu[j] = info.data[i];
 				j++;
 			}
 			i++;
 		}
-		res.shift();
-		return callback(res);
+		resu.shift();
+		async.waterfall([
+		function(cb){
+			var tab = connection.query('SELECT orientation, sexe FROM matcha.users WHERE login=?', [info.info.login], cb);
+		},
+		function(pak, res, cb){
+			if (pak[0].orientation === "Bi" || pak[0].sexe === "inconnu")
+				cb(null);
+			else if (pak[0].orientation === "Hetero" && pak[0].sexe === "Femme")
+			{
+				var i = 0;
+				while (resu[i])
+				{
+					if (resu[i].sexe === "Femme")
+					{
+						resu.splice(i, 1);
+						i--;
+					}
+					i++;
+				}
+				cb(null);
+			}
+			else if (pak[0].orientation === "Hommo" && pak[0].sexe === "Homme")
+			{
+				var i = 0;
+				while (resu[i])
+				{
+					if (resu[i].sexe === "Femme")
+					{
+						resu.splice(i, 1);
+						i--;
+					}
+					i++;
+				}
+				cb(null);
+			}
+			else
+			{
+				var i = 0;
+				while (resu[i])
+				{
+					if (resu[i].sexe === "Homme")
+					{
+						resu.splice(i, 1);
+						i--;
+					}
+					i++;
+				}
+				cb(null);
+			}
+		},
+		function(cb){
+			return callback(resu);
+		},
+		], function(err){
+		console.log("termine");
+		connection.end();
+		});
 	},
 
 	Tags: function(info, callback) {
