@@ -7,6 +7,8 @@
   function initialize() {
   var lat = document.getElementById('db_lat').value;
   var longi = document.getElementById('db_longi').value;
+
+
    geocoder = new google.maps.Geocoder();
    var paris = new google.maps.LatLng(lat, longi);
    var myOptions = {
@@ -24,6 +26,7 @@
 
   function codeAddress() {
    var address = document.getElementById("address").value;
+    address = address.replace(/</g, "&lt;").replace(/>/g, "&gt;");
    geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
      document.getElementById('lat').value = results[0].geometry.location.lat();
@@ -46,6 +49,8 @@
   function loca() {
     var latitude = document.getElementById("lat").value;
     var longitude = document.getElementById("lng").value;
+    latitude = latitude.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    longitude = longitude.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
     var dataToSend = {lat: latitude, longi: longitude};
 

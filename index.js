@@ -48,6 +48,7 @@ io.on('connection', (socket) => {
   		user.notif = notif;
 		db.query('UPDATE matcha.users SET notif= ? WHERE login= ?', ["yes", user.dest_user]);
 		db.query('INSERT INTO notification (login, notif) VALUES (?, ?)', [user.dest_user, notif]);
+		//mysql.escape(user.message);
 		db.query('INSERT INTO message (envoi, recoi, msg) VALUES (?, ?, ?)', [user.login, user.dest_user, user.message]);
   		while (allClients[i])
   		{

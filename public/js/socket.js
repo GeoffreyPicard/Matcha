@@ -35,6 +35,7 @@ $(function() {
 
     $("#send_message").click(function(){
       var message = document.getElementById("comment").value;
+      message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
       var dest_user = document.getElementById("dest_user").value;
       $('#comment').val('');
       $('#comment').focus();
